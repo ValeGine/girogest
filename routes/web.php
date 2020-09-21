@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleCalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::group(['middleware' => 'auth'] , function() {
+Route::group(['middleware' => 'auth'], function () {
 
     // $this->middleware
 
-    Route::get('/analytics', function() {
+    Route::get('/analytics', function () {
         // $category_name = '';
         $data = [
             'category_name' => 'dashboard',
@@ -33,8 +35,8 @@ Route::group(['middleware' => 'auth'] , function() {
         // $pageName = 'analytics';
         return view('dashboard2')->with($data);
     });
-    
-    Route::get('/sales', function() {
+
+    Route::get('/sales', function () {
         // $category_name = '';
         $data = [
             'category_name' => 'dashboard',
@@ -50,18 +52,8 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // APPS
     Route::prefix('apps')->group(function () {
-        Route::get('/calendar', function() {
-            // $category_name = 'calendar';
-            $data = [
-                'category_name' => 'apps',
-                'page_name' => 'calendar',
-                'has_scrollspy' => 0,
-                'scrollspy_offset' => '',
-            ];
-            // $pageName = 'calendar';
-            return view('pages.apps.apps_calendar')->with($data);
-        });
-        Route::get('/chat', function() {
+        Route::get('/calendar', [GoogleCalendarController::class, 'index']);
+        Route::get('/chat', function () {
             // $category_name = 'chat';
             $data = [
                 'category_name' => 'apps',
@@ -72,7 +64,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'chat';
             return view('pages.apps.apps_chat')->with($data);
         });
-        Route::get('/contacts', function() {
+        Route::get('/contacts', function () {
             // $category_name = 'contacts';
             $data = [
                 'category_name' => 'apps',
@@ -83,7 +75,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'contacts';
             return view('pages.apps.apps_contacts')->with($data);
         });
-        Route::get('/invoice', function() {
+        Route::get('/invoice', function () {
             // $category_name = 'invoice';
             $data = [
                 'category_name' => 'apps',
@@ -94,7 +86,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'invoice';
             return view('pages.apps.apps_invoice')->with($data);
         });
-        Route::get('/mailbox', function() {
+        Route::get('/mailbox', function () {
             // $category_name = 'mailbox';
             $data = [
                 'category_name' => 'apps',
@@ -105,7 +97,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'mailbox';
             return view('pages.apps.apps_mailbox')->with($data);
         });
-        Route::get('/notes', function() {
+        Route::get('/notes', function () {
             // $category_name = 'notes';
             $data = [
                 'category_name' => 'apps',
@@ -116,7 +108,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'notes';
             return view('pages.apps.apps_notes')->with($data);
         });
-        Route::get('/scrumboard', function() {
+        Route::get('/scrumboard', function () {
             $category_name = 'scrumboard';
             $data = [
                 'category_name' => 'apps',
@@ -127,7 +119,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'scrumboard';
             return view('pages.apps.apps_scrumboard')->with($data);
         });
-        Route::get('/todoList', function() {
+        Route::get('/todoList', function () {
             // $category_name = 'todo-list';
             $data = [
                 'category_name' => 'apps',
@@ -142,7 +134,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Authentication
     Route::prefix('authentication')->group(function () {
-        Route::get('/lockscreen_boxed', function() {
+        Route::get('/lockscreen_boxed', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -153,7 +145,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_boxed';
             return view('pages.authentication.auth_lockscreen_boxed')->with($data);
         });
-        Route::get('/lockscreen', function() {
+        Route::get('/lockscreen', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -164,7 +156,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_default';
             return view('pages.authentication.auth_lockscreen')->with($data);
         });
-        Route::get('/login_boxed', function() {
+        Route::get('/login_boxed', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -175,7 +167,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_boxed';
             return view('pages.authentication.auth_login_boxed')->with($data);
         });
-        Route::get('/login', function() {
+        Route::get('/login', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -186,7 +178,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_default';
             return view('pages.authentication.auth_login')->with($data);
         });
-        Route::get('/pass_recovery_boxed', function() {
+        Route::get('/pass_recovery_boxed', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -197,7 +189,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_boxed';
             return view('pages.authentication.auth_pass_recovery_boxed')->with($data);
         });
-        Route::get('/pass_recovery', function() {
+        Route::get('/pass_recovery', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -208,7 +200,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_default';
             return view('pages.authentication.auth_pass_recovery')->with($data);
         });
-        Route::get('/register_boxed', function() {
+        Route::get('/register_boxed', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -219,7 +211,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'auth_boxed';
             return view('pages.authentication.auth_register_boxed')->with($data);
         });
-        Route::get('/register', function() {
+        Route::get('/register', function () {
             // $category_name = 'auth';
             $data = [
                 'category_name' => 'auth',
@@ -235,24 +227,24 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Charts
     // Route::prefix('charts')->group(function () {
-        Route::get('/charts', function() {
-            // $category_name = 'chart';
-            $data = [
+    Route::get('/charts', function () {
+        // $category_name = 'chart';
+        $data = [
                 'category_name' => 'charts',
                 'page_name' => 'charts',
                 'has_scrollspy' => 1,
                 'scrollspy_offset' => 140,
 
             ];
-            // $pageName = 'charts';
-            return view('pages.charts.charts_apex')->with($data);
-        });
+        // $pageName = 'charts';
+        return view('pages.charts.charts_apex')->with($data);
+    });
     // });
 
 
     // Components
     Route::prefix('components')->group(function () {
-        Route::get('/accordions', function() {
+        Route::get('/accordions', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -264,7 +256,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'accordion';
             return view('pages.components.component_accordion')->with($data);
         });
-        Route::get('/blockui', function() {
+        Route::get('/blockui', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -276,7 +268,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'blockui';
             return view('pages.components.component_blockui')->with($data);
         });
-        Route::get('/carousel', function() {
+        Route::get('/carousel', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -288,7 +280,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'bootstrap_carousel';
             return view('pages.components.component_bootstrap_carousel')->with($data);
         });
-        Route::get('/cards', function() {
+        Route::get('/cards', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -300,7 +292,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'cards';
             return view('pages.components.component_cards')->with($data);
         });
-        Route::get('/countdown', function() {
+        Route::get('/countdown', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -312,7 +304,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'countdown';
             return view('pages.components.component_countdown')->with($data);
         });
-        Route::get('/counter', function() {
+        Route::get('/counter', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -324,7 +316,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'counter';
             return view('pages.components.component_counter')->with($data);
         });
-        Route::get('/lightbox', function() {
+        Route::get('/lightbox', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -336,7 +328,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'lightbox';
             return view('pages.components.component_lightbox')->with($data);
         });
-        Route::get('/list_group', function() {
+        Route::get('/list_group', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -348,7 +340,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'list_group';
             return view('pages.components.component_list_group')->with($data);
         });
-        Route::get('/media_object', function() {
+        Route::get('/media_object', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -360,7 +352,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'media_object';
             return view('pages.components.component_media_object')->with($data);
         });
-        Route::get('/modals', function() {
+        Route::get('/modals', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -372,7 +364,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'modal';
             return view('pages.components.component_modal')->with($data);
         });
-        Route::get('/pricing_tables', function() {
+        Route::get('/pricing_tables', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -384,7 +376,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'pricing_table';
             return view('pages.components.component_pricing_table')->with($data);
         });
-        Route::get('/session_timeout', function() {
+        Route::get('/session_timeout', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -396,7 +388,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'session_timeout';
             return view('pages.components.component_session_timeout')->with($data);
         });
-        Route::get('/notifications', function() {
+        Route::get('/notifications', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -408,7 +400,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'snackbar';
             return view('pages.components.component_snackbar')->with($data);
         });
-        Route::get('/sweet_alerts', function() {
+        Route::get('/sweet_alerts', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -420,7 +412,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'sweetalert';
             return view('pages.components.component_sweetalert')->with($data);
         });
-        Route::get('/tabs', function() {
+        Route::get('/tabs', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -432,7 +424,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'tabs';
             return view('pages.components.component_tabs')->with($data);
         });
-        Route::get('/timeline', function() {
+        Route::get('/timeline', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'components',
@@ -449,7 +441,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Drag and Drop
     // Route::prefix('drag_n_drop')->group(function () {
-    Route::get('/drag_and_drop', function() {
+    Route::get('/drag_and_drop', function () {
         // $category_name = '';
         $data = [
             'category_name' => 'drag_n_drop',
@@ -466,7 +458,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Elements
     Route::prefix('elements')->group(function () {
-        Route::get('/alerts', function() {
+        Route::get('/alerts', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -478,7 +470,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'alerts';
             return view('pages.elements.element_alerts')->with($data);
         });
-        Route::get('/avatars', function() {
+        Route::get('/avatars', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -490,7 +482,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'avatars';
             return view('pages.elements.element_avatar')->with($data);
         });
-        Route::get('/badges', function() {
+        Route::get('/badges', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -502,7 +494,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'badges';
             return view('pages.elements.element_badges')->with($data);
         });
-        Route::get('/breadcrumbs', function() {
+        Route::get('/breadcrumbs', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -514,7 +506,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'breadcrumbs';
             return view('pages.elements.element_breadcrumbs')->with($data);
         });
-        Route::get('/button_group', function() {
+        Route::get('/button_group', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -526,7 +518,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'buttons_group';
             return view('pages.elements.element_buttons_group')->with($data);
         });
-        Route::get('/buttons', function() {
+        Route::get('/buttons', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -538,7 +530,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'buttons';
             return view('pages.elements.element_buttons')->with($data);
         });
-        Route::get('/color_library', function() {
+        Route::get('/color_library', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -550,7 +542,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'color_library';
             return view('pages.elements.element_color_library')->with($data);
         });
-        Route::get('/dropdown', function() {
+        Route::get('/dropdown', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -562,7 +554,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'dropdown';
             return view('pages.elements.element_dropdown')->with($data);
         });
-        Route::get('/infobox', function() {
+        Route::get('/infobox', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -574,7 +566,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'infobox';
             return view('pages.elements.element_infobox')->with($data);
         });
-        Route::get('/jumbotron', function() {
+        Route::get('/jumbotron', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -586,7 +578,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'jumbotron';
             return view('pages.elements.element_jumbotron')->with($data);
         });
-        Route::get('/loaders', function() {
+        Route::get('/loaders', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -598,7 +590,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'loader';
             return view('pages.elements.element_loader')->with($data);
         });
-        Route::get('/pagination', function() {
+        Route::get('/pagination', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -610,7 +602,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'pagination';
             return view('pages.elements.element_pagination')->with($data);
         });
-        Route::get('/popovers', function() {
+        Route::get('/popovers', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -622,7 +614,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'popovers';
             return view('pages.elements.element_popovers')->with($data);
         });
-        Route::get('/progress_bar', function() {
+        Route::get('/progress_bar', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -634,7 +626,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'progress_bar';
             return view('pages.elements.element_progress_bar')->with($data);
         });
-        Route::get('/search', function() {
+        Route::get('/search', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -646,7 +638,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'search';
             return view('pages.elements.element_search')->with($data);
         });
-        Route::get('/tooltips', function() {
+        Route::get('/tooltips', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -658,7 +650,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'tooltips';
             return view('pages.elements.element_tooltips')->with($data);
         });
-        Route::get('/treeview', function() {
+        Route::get('/treeview', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -670,7 +662,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'treeview';
             return view('pages.elements.element_treeview')->with($data);
         });
-        Route::get('/typography', function() {
+        Route::get('/typography', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'elements',
@@ -686,7 +678,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Font Icons
     // Route::prefix('fonticons')->group(function () {
-    Route::get('/font_icons', function() {
+    Route::get('/font_icons', function () {
         // $category_name = 'fonticons';
         $data = [
             'category_name' => 'fonticons',
@@ -702,7 +694,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Forms
     Route::prefix('forms')->group(function () {
-        Route::get('/basic', function() {
+        Route::get('/basic', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -714,7 +706,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'bootstrap_basic';
             return view('pages.forms.form_bootstrap_basic')->with($data);
         });
-        Route::get('/bootstrap_select', function() {
+        Route::get('/bootstrap_select', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -726,7 +718,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'bootstrap_select';
             return view('pages.forms.form_bootstrap_select')->with($data);
         });
-        Route::get('/touchspin', function() {
+        Route::get('/touchspin', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -738,7 +730,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'bootstrap_touchspin';
             return view('pages.forms.form_bootstrap_touchspin')->with($data);
         });
-        Route::get('/checkbox_radio', function() {
+        Route::get('/checkbox_radio', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -750,7 +742,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'checkbox_radio';
             return view('pages.forms.form_checkbox_radio')->with($data);
         });
-        Route::get('/clipboard', function() {
+        Route::get('/clipboard', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -762,7 +754,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'clipboard';
             return view('pages.forms.form_clipboard')->with($data);
         });
-        Route::get('/date_range_picker', function() {
+        Route::get('/date_range_picker', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -774,7 +766,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'date_range_picker';
             return view('pages.forms.form_date_range_picker')->with($data);
         });
-        Route::get('/file_upload', function() {
+        Route::get('/file_upload', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -786,7 +778,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'fileupload';
             return view('pages.forms.form_fileupload')->with($data);
         });
-        Route::get('/input_group', function() {
+        Route::get('/input_group', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -798,7 +790,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'input_group_basic';
             return view('pages.forms.form_input_group_basic')->with($data);
         });
-        Route::get('/input_mask', function() {
+        Route::get('/input_mask', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -810,7 +802,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'input_mask';
             return view('pages.forms.form_input_mask')->with($data);
         });
-        Route::get('/layouts', function() {
+        Route::get('/layouts', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -822,7 +814,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'layouts';
             return view('pages.forms.form_layouts')->with($data);
         });
-        Route::get('/markdown_editor', function() {
+        Route::get('/markdown_editor', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -834,7 +826,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'markdown';
             return view('pages.forms.form_markdown')->with($data);
         });
-        Route::get('/maxlength', function() {
+        Route::get('/maxlength', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -846,7 +838,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'maxlength';
             return view('pages.forms.form_maxlength')->with($data);
         });
-        Route::get('/quill_editor', function() {
+        Route::get('/quill_editor', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -858,7 +850,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'quill';
             return view('pages.forms.form_quill')->with($data);
         });
-        Route::get('/select2', function() {
+        Route::get('/select2', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -870,7 +862,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'select2';
             return view('pages.forms.form_select2')->with($data);
         });
-        Route::get('/switches', function() {
+        Route::get('/switches', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -882,7 +874,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'switches';
             return view('pages.forms.form_switches')->with($data);
         });
-        Route::get('/typeahead', function() {
+        Route::get('/typeahead', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -894,7 +886,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'typeahead';
             return view('pages.forms.form_typeahead')->with($data);
         });
-        Route::get('/validation', function() {
+        Route::get('/validation', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -906,7 +898,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'validation';
             return view('pages.forms.form_validation')->with($data);
         });
-        Route::get('/wizards', function() {
+        Route::get('/wizards', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'forms',
@@ -921,7 +913,7 @@ Route::group(['middleware' => 'auth'] , function() {
     });
 
     // Maps
-    Route::get('/maps', function() {
+    Route::get('/maps', function () {
         // $category_name = '';
         $data = [
             'category_name' => 'maps',
@@ -937,7 +929,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Pages
     Route::prefix('pages')->group(function () {
-        Route::get('/coming_soon', function() {
+        Route::get('/coming_soon', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -949,7 +941,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'coming_soon';
             return view('pages.pages.pages_coming_soon')->with($data);
         });
-        Route::get('/contact_us_form', function() {
+        Route::get('/contact_us_form', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -961,7 +953,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'contact_us';
             return view('pages.pages.pages_contact_us')->with($data);
         });
-        Route::get('/error_404', function() {
+        Route::get('/error_404', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -973,7 +965,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'error404';
             return view('pages.pages.pages_error404')->with($data);
         });
-        Route::get('/error_500', function() {
+        Route::get('/error_500', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -985,7 +977,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'error500';
             return view('pages.pages.pages_error500')->with($data);
         });
-        Route::get('/error_503', function() {
+        Route::get('/error_503', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -997,7 +989,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'error503';
             return view('pages.pages.pages_error503')->with($data);
         });
-        Route::get('/faq', function() {
+        Route::get('/faq', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -1009,7 +1001,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'faq';
             return view('pages.pages.pages_faq')->with($data);
         });
-        Route::get('/faq2', function() {
+        Route::get('/faq2', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -1021,7 +1013,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'faq2';
             return view('pages.pages.pages_faq2')->with($data);
         });
-        Route::get('/helpdesk', function() {
+        Route::get('/helpdesk', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -1033,7 +1025,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'helpdesk';
             return view('pages.pages.pages_helpdesk')->with($data);
         });
-        Route::get('/maintenence', function() {
+        Route::get('/maintenence', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -1045,7 +1037,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'maintenence';
             return view('pages.pages.pages_maintenence')->with($data);
         });
-        Route::get('/privacy_policy', function() {
+        Route::get('/privacy_policy', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'pages',
@@ -1061,7 +1053,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Starter Kit
     Route::prefix('starter-kit')->group(function () {
-        Route::get('/alternative_menu', function() {
+        Route::get('/alternative_menu', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'starter_kits',
@@ -1073,7 +1065,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'alt_menu';
             return view('pages.starter-kit.starter_kit_alt_menu')->with($data);
         });
-        Route::get('/blank_page', function() {
+        Route::get('/blank_page', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'starter_kits',
@@ -1085,7 +1077,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'blank_page';
             return view('pages.starter-kit.starter_kit_blank_page')->with($data);
         });
-        Route::get('/boxed', function() {
+        Route::get('/boxed', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'starter_kits',
@@ -1097,7 +1089,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'boxed';
             return view('pages.starter-kit.starter_kit_boxed')->with($data);
         });
-        Route::get('/breadcrumbs', function() {
+        Route::get('/breadcrumbs', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'starter_kits',
@@ -1108,13 +1100,13 @@ Route::group(['middleware' => 'auth'] , function() {
             ];
             // $pageName = 'breadcrumb';
             return view('pages.starter-kit.starter_kit_breadcrumbs')->with($data);
-        });        
+        });
     });
 
 
     // Tables
     Route::prefix('tables')->group(function () {
-        Route::get('/bootstrap_basic', function() {
+        Route::get('/bootstrap_basic', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'bootstrap_basic_table',
@@ -1127,7 +1119,7 @@ Route::group(['middleware' => 'auth'] , function() {
             return view('pages.tables.table_basic')->with($data);
         });
         Route::prefix('datatables')->group(function () {
-            Route::get('/alternative_pagination', function() {
+            Route::get('/alternative_pagination', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1139,7 +1131,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'alternative_pagination';
                 return view('pages.tables.table_dt_alternative_pagination')->with($data);
             });
-            Route::get('/basic-light', function() {
+            Route::get('/basic-light', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1151,7 +1143,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'basic-light';
                 return view('pages.tables.table_dt_basic-light')->with($data);
             });
-            Route::get('/basic', function() {
+            Route::get('/basic', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1163,7 +1155,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'basic';
                 return view('pages.tables.table_dt_basic')->with($data);
             });
-            Route::get('/custom', function() {
+            Route::get('/custom', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1175,7 +1167,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'custom';
                 return view('pages.tables.table_dt_custom')->with($data);
             });
-            Route::get('/html5', function() {
+            Route::get('/html5', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1187,7 +1179,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'html5';
                 return view('pages.tables.table_dt_html5')->with($data);
             });
-            Route::get('/live_dom_ordering', function() {
+            Route::get('/live_dom_ordering', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1199,7 +1191,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'live_dom_ordering';
                 return view('pages.tables.table_dt_live_dom_ordering')->with($data);
             });
-            Route::get('/miscellaneous', function() {
+            Route::get('/miscellaneous', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1211,7 +1203,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'miscellaneous';
                 return view('pages.tables.table_dt_miscellaneous')->with($data);
             });
-            Route::get('/multi-column_ordering', function() {
+            Route::get('/multi-column_ordering', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1223,7 +1215,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'multi-column_ordering';
                 return view('pages.tables.table_dt_multi-column_ordering')->with($data);
             });
-            Route::get('/multiple_tables', function() {
+            Route::get('/multiple_tables', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1235,7 +1227,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'multiple_tables';
                 return view('pages.tables.table_dt_multiple_tables')->with($data);
             });
-            Route::get('/ordering_sorting', function() {
+            Route::get('/ordering_sorting', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1247,7 +1239,7 @@ Route::group(['middleware' => 'auth'] , function() {
                 // $pageName = 'ordering_sorting';
                 return view('pages.tables.table_dt_ordering_sorting')->with($data);
             });
-            Route::get('/range_search', function() {
+            Route::get('/range_search', function () {
                 // $category_name = '';
                 $data = [
                     'category_name' => 'datatable',
@@ -1264,7 +1256,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Users
     Route::prefix('users')->group(function () {
-        Route::get('/account_settings', function() {
+        Route::get('/account_settings', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'users',
@@ -1276,7 +1268,7 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'account_settings';
             return view('pages.users.user_account_setting')->with($data);
         });
-        Route::get('/profile', function() {
+        Route::get('/profile', function () {
             // $category_name = '';
             $data = [
                 'category_name' => 'users',
@@ -1291,7 +1283,7 @@ Route::group(['middleware' => 'auth'] , function() {
     });
 
     // Widgets
-    Route::get('/widgets', function() {
+    Route::get('/widgets', function () {
         // $category_name = '';
         $data = [
             'category_name' => 'widgets',
@@ -1303,24 +1295,26 @@ Route::group(['middleware' => 'auth'] , function() {
         // $pageName = 'widgets';
         return view('pages.widgets.widgets')->with($data);
     });
-
-
 });
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/register', function() {
-    return redirect('/login');    
+Route::get('/register', function () {
+    return redirect('/login');
 });
-Route::get('/password/reset', function() {
-    return redirect('/login');    
+Route::get('/password/reset', function () {
+    return redirect('/login');
 });
 
-Route::get('/', function() {
-    return redirect('/sales');    
+Route::get('/', function () {
+    return redirect('/sales');
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/gcal', [GoogleCalendarController::class, 'index']);
+Route::post('/gcal/events/store', [GoogleCalendarController::class, 'store']);
+Route::post('/gcal/events/edit', [GoogleCalendarController::class, 'edit']);
